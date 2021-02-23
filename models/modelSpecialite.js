@@ -25,8 +25,8 @@ exports.uneSpecialite = async (id) => {
 	}
 };
 
-//supprimer une spécialité
 
+//supprimer une spécialité
 exports.delete = async (id) => {
 	try {
 		const result = await connexion.query(`delete from specialites where specialites.id_specialite = ?`, [ id ]);
@@ -35,9 +35,20 @@ exports.delete = async (id) => {
 		throw error;
 	}
 };
+// ajouter un hôpital
+exports.ajouter = async (specialite) => {
+	try {
+			const result = await connexion.query(`insert into specialites (nom, description) values (?, ?)`,[
+				specialite.nom,
+				specialite.description,
+			]);
+			return result;
+	} catch (error) {
+			throw error
+	}
+}
 
 // modifier une spécialité
-
 exports.update = async (specialite, id) => {
 	try {
 		const result = await connexion.query(

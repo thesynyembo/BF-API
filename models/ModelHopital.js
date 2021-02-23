@@ -28,24 +28,25 @@ exports.unHopital = async (id) => {
 
 
 //jonction hop and spec
-exports.hopSpec = async (id) => {
-	try {
-			const result = await connexion.query(`select *
-        from
-            hopitaux a
-                inner join
-            hopitaux_services b
-                on a.id_hopital = b.hopital_id
-                inner join 
-            specialites c
-                on b.specialite_id = c.id_specialite`,
-								[ id ]);
-		return result;
-	} catch (error) {
-		throw error;
-	}
+exports.hopSpec= async () => {
+	// try {
+	// 		const result = await connexion.query(`select *
+  //       from
+  //           hopitaux a
+  //               inner join
+  //           hopitaux_services b
+  //               on a.id_hopital = b.hopital_id
+  //               inner join 
+  //           specialites c
+  //               on b.specialite_id = c.id_specialite`);
+	// 	return result;
+	// } catch (error) {
+	// 	throw error;
+	// }
 };
 
+
+//Récuperation de l'hôpital avec les specialités
 exports.Specialites = async (id) => {
 	try {
 	
@@ -66,32 +67,35 @@ exports.Specialites = async (id) => {
 	}
 }
 
-// ajouter un etablissement
+
+// ajouter un hôpital
 exports.ajouter = async (hopital) => {
 	try {
-			const result = await connexion.query(`insert into hopitaux (name, adress, email, image, heure_de_service, directeur, president_surveillance,phone, site_web, description, ville_id, images, latitude, longitude) values (?, ?, ?, ?,?, ?, ?,?,?,?,?,?, ?, ?)`,[
+			const result = await connexion.query(`insert into hopitaux (name, adress, email,  site_web, heure_de_service, latitude, longitude, phone, description, image, president_surveillance, directeur, images, ville_id) values (?, ?, ?, ?,?, ?, ?,?,?,?,?,?, ?, ?)`,[
 				hopital.name,
 				hopital.adress,
 				hopital.email,
-				hopital.image,
+				hopital.site_web,
 				hopital.heure_de_service,
-				hopital.directeur,
-				hopital.president_surveillance,
-				hopital.phone,
-				hopital.site_web,			
-				hopital.descreiption,
-				hopital.ville_id,
-				hopital.images,
 				hopital.latitude,
 				hopital.longitude,
+				hopital.phone,
+				hopital.description, 	
+				hopital.image,
+				hopital.president_surveillance,
+				hopital.directeur,
+				hopital.images,		
+				hopital.ville_id,
 			]);
 			return result;
 	} catch (error) {
 			throw error
 	}
 }
-//supprimer un hôpital
 
+
+
+//supprimer un hôpital
 exports.delete = async (id) => {
 	try {
 		const result = await connexion.query(`delete from hopitaux where id_hopital = ?`, [ id ]);
@@ -101,25 +105,27 @@ exports.delete = async (id) => {
 	}
 };
 
-// modifier un hôpital
 
+// modifier un hôpital
 exports.update = async (hopital, id) => {
 	try {
 		const result = await connexion.query(
-			`update hopitaux set name = ?, adress = ?,heure_de_service=?,  email = ?, phone = ?, site_web = ?, heure = ?, directeur = ?, president_surveillance = ?,images=?,heure_de_service!?, ville_id = ?, latitude = ?, longitude = ? where id_hopital = ?`,
+			`update hopitaux set name = ?, adress = ?,email = ?, site_web = ?, heure_de_service=?, latitude = ?, longitude = ?, phone = ?, description = ?,image=? ,president_surveillance = ?, directeur = ?,images=?, ville_id = ? where id_hopital = ?`,
 			[
 				hopital.name,
 				hopital.adress,
 				hopital.email,
-				hopital.phone,
 				hopital.site_web,
-				hopital.images,
 				hopital.heure_de_service,
-				hopital.directeur,
-				hopital.president_surveillance,
-				hopital.ville_id,
 				hopital.latitude,
 				hopital.longitude,
+				hopital.phone,
+				hopital.description, 	
+				hopital.image,
+				hopital.president_surveillance,
+				hopital.directeur,
+				hopital.images,		
+				hopital.ville_id,
 				id
 			]
 		);

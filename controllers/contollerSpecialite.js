@@ -28,19 +28,28 @@ exports.supprimer = async (req, res) => {
 	try {
 		const id = req.params.id;
 		const specialite = specialites.delete(id);
-		res.send(specialite);
+		res.send({response: "L'élément a été supprimé"});
 	} catch (error) {
 		throw error;
 	}
 };
 
-//Modifier une spécialié
+//Ajouter un hôpital
+exports.ajouter = async (req, res) => {
+	try {
+					const specialite = await specialites.ajouter(req.body)
+					res.send({response:"L'ajout est effectué"});
+	} catch (error) {
+			throw error
+	}
+}
 
+//Modifier une spécialié
 exports.modifier = async (req, res) => {
 	try {
 		const id = req.params.id;
 		const specialite = await specialites.uneSpecialite(id);
-		res.send(specialite);
+		res.send({response:"La modification a réussi"});
 	} catch (error) {
 		throw error;
 	}

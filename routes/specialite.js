@@ -4,11 +4,17 @@ const specialites = require('../controllers/contollerSpecialite');
 
 //liste des spécialités
 router.get('/', specialites.listeSpecialite);
-// une spécialité
+
+// Récupération d'une spécialité
 router.get('/:id', specialites.uneSpecialite);
+
+// Ajouter un hôpital
+router.post("/ajouter", specialites.ajouter)
+
 // modifier une spécialité
-router.post('/modifier/:id', specialites.modifier);
+router.put('/modifier/:id', specialites.modifier);
+
 // supprimer une spécialité
-router.get('/supprimer/:id', specialites.supprimer);
+router.delete('/supprimer/:id', specialites.supprimer);
 
 module.exports = router;
