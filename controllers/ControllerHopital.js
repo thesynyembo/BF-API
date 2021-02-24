@@ -49,7 +49,7 @@ exports.Specialites = async (req, res) => {
 		})
 
 		const resultat ={
-			id_hopital: 8,
+			id_hopital: hopital[0].id_hopital,
 			name: hopital[0].name,
 			adress: hopital[0].adress,
 			email: hopital[0].email,
